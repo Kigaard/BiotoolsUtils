@@ -1,5 +1,3 @@
-[![CircleCI](https://circleci.com/gh/Kigaard/BiotoolsUtils/tree/main.svg?style=svg)](https://circleci.com/gh/Kigaard/BiotoolsUtils/tree/main)
-
 # BiotoolsUtils
 Utilities for the [Bio.tools](https://bio.tools/) ([GitHub](https://github.com/bio-tools)) under [ELIXIR](https://elixir-europe.org/).
 
