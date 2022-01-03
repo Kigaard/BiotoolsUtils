@@ -1,7 +1,7 @@
 # BiotoolsUtils
 Utilities for the [Bio.tools](https://bio.tools/) ([GitHub](https://github.com/bio-tools)) under [ELIXIR](https://elixir-europe.org/).
 
-The scripts are developed using Python 3.10.0 and Pipenv as reference manager.
+The scripts are developed using Python 3.10.0 and [Pipenv](https://github.com/pypa/pipenv) as package manager.
 
 ## Utility scripts
 The different utility script.
