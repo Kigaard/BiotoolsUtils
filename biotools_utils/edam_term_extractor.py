@@ -47,7 +47,11 @@ def _extract_edam_operation(tools: list) -> dict:
     terms: defaultdict = defaultdict(lambda: [])
 
     for tool in tools:
-        terms[tool["biotoolsID"]].extend(*[function["operation"] for function in tool["function"]])
+        operations = [function["operation"] for function in tool["function"]]
+        operations = [item for sublist in operations for item in sublist]
+        # print(operations)
+        if len(operations) > 0:
+            terms[tool["biotoolsID"]].extend(operations)
 
     return terms
 
