@@ -6,9 +6,9 @@ The scripts are developed using Python 3.10.0 and [Pipenv](https://github.com/py
 # Biotools utils
 [Biotools_utils](biotools_utils) is a small package containing different Python modules, which can be used in bio.tools
 
-|                  Module                  | Description                                                                    |
-|:----------------------------------------:|--------------------------------------------------------------------------------|
-| [spdx_license_parser](biotools_utils.py) | Module for parsing [SPDX licenses](https://github.com/spdx/license-list-data). |
+|                            Module                            | Description                                                                    |
+|:------------------------------------------------------------:|--------------------------------------------------------------------------------|
+| [spdx_license_parser](biotools_utils/spdx_license_parser.py) | Module for parsing [SPDX licenses](https://github.com/spdx/license-list-data). |
 
 
 ## Utility scripts
