@@ -3,7 +3,14 @@ Utilities for the [Bio.tools](https://bio.tools/) ([GitHub](https://github.com/b
 
 The scripts are developed using Python 3.10.0 and [Pipenv](https://github.com/pypa/pipenv) as package manager.
 
+# Biotools utils
+[Biotools_utils](biotools_utils) is a small package containing different Python modules, which can be used in bio.tools
+
+|                  Module                  | Description                                                                    |
+|:----------------------------------------:|--------------------------------------------------------------------------------|
 | [spdx_license_parser](biotools_utils.py) | Module for parsing [SPDX licenses](https://github.com/spdx/license-list-data). |
+
+
 ## Utility scripts
 |                              Script                              | Description                                                                              |
 |:----------------------------------------------------------------:|------------------------------------------------------------------------------------------|
