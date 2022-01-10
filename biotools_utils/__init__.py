@@ -1,0 +1,1 @@
+from spdx_license_parser import LicensesData, parse_license_list
