@@ -16,6 +16,27 @@ def _analyse_terms(term_type: str, term_list: list[list[str]]):
     _calculate_apriori_relations(term_list=term_list)
 
 
+def _get_total_terms(tool_list: list[dict], term_type: str):
+    """
+    Get the total tool terms.
+    
+    :param tool_list: The total tool terms.
+    :param term_type: The term type. Must be 'topic' or 'format'
+    :return: 
+    """
+    terms: list[str] = []
+
+    for tool in tool_list:
+        if term_type.lower() == "topic":
+            terms = [topic["term"] for topic in tool["topic"]]
+        elif term_type.lower() == "operation":
+            terms = list(set([op["term"] for op in [function["operation"][0] for function in tool["function"]]]))
+        else:
+            raise ValueError(f"The term type '{term_type.lower()}' is invalid.")
+
+    counter: Counter = Counter(terms)
+
+
 def _find_common_elements(term_list: list[list[str]], top_n: int = 10):
     """
     Find the most common elements.
@@ -53,6 +74,7 @@ def _calculate_apriori_relations(term_list: list[list[str]]):
 
 
 def main():
+
     tool_list: pd.DataFrame = pd.read_excel("tool_list.xlsx")
     topics: list[list[str]] = list(tool_list["Topics"].str.split("\n"))
     operations: list[list[str]] = list(tool_list["Operations"].str.split("\n"))
