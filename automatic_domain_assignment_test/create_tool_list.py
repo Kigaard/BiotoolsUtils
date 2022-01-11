@@ -6,6 +6,41 @@ import requests
 from requests import Response
 import urllib.parse
 
+from biotools_utils import extract_terms
+
+
+def _download_full_tool_list() -> list[dict]:
+    """
+    Download the entire tool list from bio.tools.
+
+    :return: The tool list.
+    """
+    tool_list: list[dict] = []
+    next_page: str = ""
+    base_url = f"https://bio.tools/api/t/?format=json"
+    # Get the first page
+    resp: Response = requests.get(base_url)
+    resp.raise_for_status()
+    resp_json = resp.json()
+    next_page = resp_json["next"]
+    tool_list.extend(resp_json["list"])
+    sleep(1)
+
+    # Get the next pages
+    while next_page is not None:
+        resp: Response = requests.get(f"{base_url}&{next_page[1:]}")
+        print(resp.url)
+        resp.raise_for_status()
+        resp_json = resp.json()
+        next_page = resp_json["next"]
+        tool_list.extend(resp_json["list"])
+        sleep(1)
+
+    with open("all_tools.json", "w") as f:
+        f.write(json.dumps(tool_list))
+
+    return tool_list
+
 
 def _download_tool_list(collection_id: str) -> list[dict]:
     """
@@ -44,7 +79,18 @@ def _download_tool_list(collection_id: str) -> list[dict]:
     return tool_list
 
 
-def _create_tool_list(tool_list: list[dict]):
+def _extract_collection_tools(tool_list: list[dict], collection_id: str) -> list[dict]:
+    """
+    Extract tools with  a given collection ID.
+
+    :param tool_list: The list of tools.
+    :param collection_id: The collection ID.
+    :return: The list of tools.
+    """
+    return [tool for tool in tool_list if collection_id in tool["collectionID"]]
+
+
+def _create_collection_tool_list(tool_list: list[dict]):
     """
     Create the tool list.
 
@@ -54,9 +100,17 @@ def _create_tool_list(tool_list: list[dict]):
 
     for tool in tool_list:
         tool_idx: str = f"{tool['name']}\n(https://bio.tools/{tool['biotoolsID']})"
-        topics: str = "\n".join([topic["term"] for topic in tool["topic"]])
-        operations: str = "\n".join(list(set([op["term"] for op in
-                                              [function["operation"][0] for function in tool["function"]]])))
+        # Extract the terms
+        topics_raw: list = list(extract_terms(tools=[tool], term_type="Topic").values())[0]
+        operations_raw: list = list(extract_terms(tools=[tool], term_type="Operation").values())
+        if len(operations_raw) > 0:
+            operations_raw = operations_raw[0]
+
+        # Get the term names
+        topics: str = "\n".join([term["term"] for term in topics_raw])
+        operations: str = "\n".join(list(set([term["term"] for term in operations_raw])))
+
+        # Add the term to the dictionary
         parsed_tool_list[tool_idx] = [tool["description"], topics, operations]
 
     tools_df: pd.DataFrame = pd.DataFrame.from_dict(parsed_tool_list, orient="index", columns=["Description", "Topics",
@@ -65,8 +119,13 @@ def _create_tool_list(tool_list: list[dict]):
 
 
 def main():
-    tools: list[dict] = _download_tool_list(collection_id="")
-    _create_tool_list(tool_list=tools)
+    collection_id: str = "Proteomics"
+    # full_tools: list[dict] = _download_full_tool_list()
+    with open("all_tools.json", "r") as f:
+        full_tools = json.load(f)
+
+    tools: list[dict] = _extract_collection_tools(tool_list=full_tools, collection_id=collection_id)
+    _create_collection_tool_list(tool_list=tools)
 
 
 if __name__ == "__main__":
