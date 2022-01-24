@@ -1,6 +1,10 @@
 {
     "TopicYes":[
         {
+            "term":"Proteomics",
+            "uri":"topic_0121"
+        },
+        {
             "term":"Protein modifications",
             "uri":"topic_0601"
         },
