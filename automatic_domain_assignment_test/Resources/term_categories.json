@@ -1,0 +1,154 @@
+{
+    "TopicYes":[
+        {
+            "term":"Protein modifications",
+            "uri":"topic_0601"
+        },
+        {
+            "term":"Protein interactions",
+            "uri":"topic_0128"
+        },
+        {
+            "term":"Protein structure analysis",
+            "uri":"topic_2814"
+        },
+        {
+            "term":"Protein folds and structural domains",
+            "uri":"topic_0736"
+        },
+        {
+            "term":"Protein expression",
+            "uri":"topic_0108"
+        },
+        {
+            "term":"Protein sites, features and motifs",
+            "uri":"topic_3510"
+        },
+        {
+            "term":"Protein properties",
+            "uri":"topic_0123"
+        },
+        {
+            "term":"Protein secondary structure",
+            "uri":"topic_3542"
+        }
+    ],
+    "TopicMaybe":[
+        {
+            "term":"Proteins",
+            "uri":"topic_0078"
+        },
+        {
+            "term":"Proteomics experiment",
+            "uri":"topic_3520"
+        },
+        {
+            "term":"Sequence analysis",
+            "uri":"topic_0080"
+        },
+              {
+            "term":"Molecular interactions, pathways and networks",
+            "uri":"topic_0602"
+        },
+              {
+            "term":"Sequencing",
+            "uri":"topic_3162"
+        },
+              {
+            "term":"Sequence sites, features and motifs",
+            "uri":"topic_0160"
+        },
+              {
+            "term":"Structure analysis",
+            "uri":"topic_0081"
+        }
+    ],
+    "OperationYes":[
+        {
+            "term":"Protein sequence analysis",
+            "uri":"operation_2479"
+        },
+              {
+            "term":"Peptide identification",
+            "uri":"operation_3631"
+        },
+              {
+            "term":"Protein identification",
+            "uri":"operation_3767"
+        },
+              {
+            "term":"Protein quantification",
+            "uri":"operation_3630"
+        },
+              {
+            "term":"Peptide database search",
+            "uri":"operation_3646"
+        },
+              {
+            "term":"Protein feature detection",
+            "uri":"operation_3092"
+        },
+              {
+            "term":"Protein fragment weight comparison",
+            "uri":"operation_2929"
+        },
+              {
+            "term":"Target-Decoy",
+            "uri":"operation_3649"
+        },
+              {
+            "term":"Blind peptide database search",
+            "uri":"operation_3647"
+        },
+              {
+            "term":"Protein structure analysis",
+            "uri":"operation_2406"
+        },
+      {
+            "term":"de Novo sequencing",
+            "uri":"operation_3644"
+        }
+    ],
+    "OperationMaybe":[
+        {
+            "term":"Spectral analysis",
+            "uri":"operation_3214"
+        },
+                {
+            "term":"Mass spectrum visualisation",
+            "uri":"operation_3694"
+        },
+                {
+            "term":"Peak detection",
+            "uri":"operation_3215"
+        },
+                {
+            "term":"Chromatogram visualisation",
+            "uri":"operation_3203"
+        },
+                {
+            "term":"Visualisation",
+            "uri":"operation_0337"
+        },
+                {
+            "term":"Database search",
+            "uri":"operation_2421"
+        },
+                {
+            "term":"Deisotoping",
+            "uri":"operation_3629"
+        },
+                {
+            "term":"Labeled quantification",
+            "uri":"operation_3635"
+        },
+                {
+            "term":"Differential protein expression profiling",
+            "uri":"operation_3741"
+        },
+                {
+            "term":"Isotopic distributions calculation",
+            "uri":"operation_3632"
+        }
+    ]
+}
