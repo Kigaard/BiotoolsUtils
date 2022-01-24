@@ -9,6 +9,7 @@ pandas = "*"
 requests = "*"
 apyori = "*"
 matplotlib = "*"
+scikit-learn = "*"
 
 [dev-packages]
 
