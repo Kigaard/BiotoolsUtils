@@ -50,9 +50,8 @@ def count_terms(df: pd.DataFrame):
                          TotalYes=total_yes_counts, TotalMaybe=total_maybe_counts, TotalTopics=total_topic_counts,
                          TotalOperations=total_operation_counts)
 
-    count_df = count_df.set_index("Unnamed: 0")
-    count_df.index.name = ""
-    count_df.to_excel("TestFiles/Biotools_proteomics_count_no_proteomics.xlsx")
+    count_df = count_df.set_index("ID")
+    count_df.to_excel("TestFiles/Biotools_proteomics_count.xlsx")
 
 
 def main():
