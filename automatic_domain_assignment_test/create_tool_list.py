@@ -36,7 +36,7 @@ def _download_full_tool_list() -> list[dict]:
         tool_list.extend(resp_json["list"])
         sleep(1)
 
-    with open("all_tools.json", "w") as f:
+    with open("TestFiles/all_tools.json", "w") as f:
         f.write(json.dumps(tool_list))
 
     return tool_list
@@ -73,7 +73,7 @@ def _download_tool_list(collection_id: str) -> list[dict]:
         tool_list.extend(resp_json["list"])
         sleep(1)
 
-    with open("tools.json", "w") as f:
+    with open(f"TestFiles/{collection_id}_tools.json", "w") as f:
         f.write(json.dumps(tool_list))
 
     return tool_list
@@ -97,7 +97,10 @@ def _create_collection_tool_list(tool_list: list[dict]):
     :param tool_list: The list of tools.
     """
     parsed_tool_list: dict = {}
-
+    with open("Resources/topic_index.json", "r") as f:
+        topic_index = json.load(f)["data"]
+    with open("Resources/operation_index.json", "r") as f:
+        operation_index = json.load(f)["data"]
     for tool in tool_list:
         tool_idx: str = f"{tool['name']}\n(https://bio.tools/{tool['biotoolsID']})"
         # Extract the terms
@@ -107,21 +110,29 @@ def _create_collection_tool_list(tool_list: list[dict]):
             operations_raw = operations_raw[0]
 
         # Get the term names
-        topics: str = "\n".join([term["term"] for term in topics_raw])
-        operations: str = "\n".join(list(set([term["term"] for term in operations_raw])))
+        topics_list: list = list(set([term["uri"].replace("http://edamontology.org/", "")
+                                      for term in topics_raw]))
+        operations_list: list = list(
+            set([term["uri"].replace("http://edamontology.org/", "") for term in operations_raw]))
+
+        topics: str = "\n".join([f"{topic_index[term]['name']} ({term})"
+                                 for term in topics_list if term in topic_index])
+        operations: str = "\n".join([f"{operation_index[term]['name']} ({term})"
+                                     for term in operations_list if term in operation_index])
 
         # Add the term to the dictionary
         parsed_tool_list[tool_idx] = [tool["description"], topics, operations]
 
     tools_df: pd.DataFrame = pd.DataFrame.from_dict(parsed_tool_list, orient="index", columns=["Description", "Topics",
                                                                                                "Operations"])
-    tools_df.to_excel("tool_list.xlsx")
+    tools_df.index.name = "ID"
+    tools_df.to_excel("TestFiles/biotools_proteomics.xlsx")
 
 
 def main():
     collection_id: str = "Proteomics"
     # full_tools: list[dict] = _download_full_tool_list()
-    with open("all_tools.json", "r") as f:
+    with open("Resources/all_tools.json", "r") as f:
         full_tools = json.load(f)
 
     tools: list[dict] = _extract_collection_tools(tool_list=full_tools, collection_id=collection_id)
