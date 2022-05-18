@@ -10,6 +10,7 @@ requests = "*"
 apyori = "*"
 matplotlib = "*"
 scikit-learn = "*"
+gower = "*"
 
 [dev-packages]
 

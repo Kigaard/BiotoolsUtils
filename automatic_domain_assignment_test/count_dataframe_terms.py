@@ -4,6 +4,7 @@ import re
 import pandas as pd
 
 
+
 def count_terms(df: pd.DataFrame):
     with open("Resources/term_categories.json", "r") as f:
         terms = json.load(f)
