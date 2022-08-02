@@ -1,3 +1,20 @@
+"""
+Utility script for bulk deletion of tools
+Copyright (C) 2022  Mads Kierkegaard
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
 from argparse import ArgumentParser, FileType, Namespace
 import json
 import sys
@@ -9,12 +26,30 @@ from requests import HTTPError
 
 class CustomArgumentParser(ArgumentParser):
     def error(self, message: str):
+        sys.stdout.write(LICENSE_STR)
+        sys.stdout.write("\n")
         sys.stderr.write('error: %s\n' % message)
         self.print_help()
         exit(2)
 
 
 BASE_API_URL: str = "https://bio.tools/api"
+LICENSE_STR: str = """
+delete_tools.py  Copyright (C) 2022  Mads Kierkegaard
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
 
 
 def delete_tools(account_credentials: dict, tool_id_list_file: str):
@@ -62,10 +97,10 @@ def delete_tools(account_credentials: dict, tool_id_list_file: str):
             continue
 
 
-
 if __name__ == '__main__':
     # Create the argument parser, add the arguments and parse the arguments
-    parser: CustomArgumentParser = CustomArgumentParser(description="Script for bulk deletion of tools", add_help=True)
+    parser: CustomArgumentParser = CustomArgumentParser(prog="delete_tools.py",
+                                                        description="Script for bulk deletion of tools", add_help=True)
     parser.add_argument("--credentials", '-c', help="The JSON-file containing the dictionary with the keys: 'username'"
                                                     "and 'password' for the account responsible for the deletion.",
                         type=FileType('r'), required=True)
@@ -73,6 +108,8 @@ if __name__ == '__main__':
                                             "One ID per line.",
                         type=FileType('r'), required=True)
     args: Namespace = parser.parse_args()
+
+    print(LICENSE_STR)
 
     # Read the credentials and check that it contains the required fields
     with open(args.credentials.name, 'r') as f:

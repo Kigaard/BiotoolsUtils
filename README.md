@@ -3,6 +3,8 @@ Utilities for the [Bio.tools](https://bio.tools/) ([GitHub](https://github.com/b
 
 The scripts are developed using Python 3.10.0 and [Pipenv](https://github.com/pypa/pipenv) as package manager.
 
+The files are licensed under [GNU General Public License v3.0](LICENSE).
+
 # Biotools utils
 [Biotools_utils](biotools_utils) is a small package containing different Python modules, which can be used in bio.tools
 
